@@ -1,4 +1,5 @@
 #include "rx_time_utils.hpp"
+#include "rx_file_utils.hpp"
 #include <chrono>
 
 using namespace rx::timeutils;
@@ -39,6 +40,34 @@ void test(int times) {
   std::cout << "localtime:" << t2.count() << " us" << std::endl;
 }
 
+namespace test_file_uils {
+  void test01 () {
+    cout << rx::fileutils::is_file("makefile") << endl;
+    cout << rx::fileutils::is_file("makefile.inc") << endl;
+    cout << rx::fileutils::is_file("../test/") << endl;
+
+    cout << rx::fileutils::is_dir("../test/") << endl;
+    cout << rx::fileutils::is_dir("../test1/") << endl;
+    cout << rx::fileutils::is_dir("makefile") << endl;
+
+    vector<string> files;
+    rx::fileutils::extract_filename("./", files, true);
+    for (auto i = 0; i < files.size(); i++) {
+      cout << i << "=" << files[i] << endl;
+    }
+  
+    cout <<  rx::fileutils::mkdir_n("level_1") << endl;
+    cout <<  rx::fileutils::mkdir_n("1level/2level") << endl;
+    cout <<  rx::fileutils::mkdir_n("level_1/2level") << endl;
+    cout <<  rx::fileutils::mkdir_n("o/newd2/yes/ok/no/", true) << endl;
+    vector<string> lines;
+    cout <<  rx::fileutils::get_lines("makefile", lines) << endl;
+    for (auto i : lines) {
+      cout << i << endl;
+    }
+  }
+
+}
 int main(int argc, char * argv[]) {
   if (argc < 2) { std::cerr << "usage:" << argv[0] << " times{like 5}" << std::endl; return -1;}
 
@@ -51,6 +80,8 @@ int main(int argc, char * argv[]) {
   std::cout << "mmss:" << buf << std::endl;
   std::cout << "hhmmss" << current_s() << std::endl;
   std::cout << "yyyymmdd:" << today_s() << std::endl;
+
+  test_file_uils::test01();
   return 0;
 }
 
