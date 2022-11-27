@@ -33,12 +33,8 @@ namespace rx {
     bool is_file(std::string path);
     // dir:filepath, file_list: output filename list
     bool extract_filename(const std::string &dir, std::vector<std::string> &file_list, bool is_recursion);
-
-    std::vector<std::string> split(const std::string &s, const std::string &delim);
-
     // default only owner can read/write/exe, others can read and exe, can't write
     int mkdir_n(std::string path, bool is_recursion = false);
-
     // read small formated file
     bool get_lines(std::string file, std::vector<std::string> &lines);
   }
